@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run typecheck
+      - run: npm test
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
+      - name: Verify Worker bundles
+        run: npx wrangler deploy --dry-run --outdir dist
+
+  secret-scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Fail if anything token-shaped is committed
+        run: |
+          if git grep -nE '[0-9]{8,10}:[A-Za-z0-9_-]{35}' -- ':!test/**' ':!*.md' ':!*.example'; then
+            echo "::error::Possible Telegram bot token committed. Revoke it in @BotFather NOW."
+            exit 1
+          fi

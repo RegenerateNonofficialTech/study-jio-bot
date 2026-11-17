@@ -1,0 +1,29 @@
+# Cloudflare Workers configuration.
+# Docs: https://developers.cloudflare.com/workers/wrangler/configuration/
+#
+# SECRETS ARE NOT STORED HERE. Set them with:
+#   npx wrangler secret put TELEGRAM_BOT_TOKEN
+#   npx wrangler secret put TELEGRAM_WEBHOOK_SECRET
+
+name = "study-jio-bot"
+main = "src/index.ts"
+compatibility_date = "2026-11-01"
+
+# Don't expose the default *.workers.dev preview URLs for each version.
+preview_urls = false
+
+[observability]
+enabled = true
+
+[vars]
+# Your bot's @username WITHOUT the "@". Used to ignore commands meant for other bots
+# in groups (e.g. "/jio@SomeOtherBot").
+BOT_USERNAME = "your_bot_username"
+
+# Reject webhook calls that don't come from Telegram's published IP ranges.
+# Defence in depth on top of the secret token. Set to "false" only if you are debugging.
+ENFORCE_TELEGRAM_IP = "true"
+
+# Optional comma-separated allowlist of chat IDs (e.g. "-1001234567890,123456789").
+# Empty = the bot works in any chat it is added to.
+ALLOWED_CHAT_IDS = ""

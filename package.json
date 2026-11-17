@@ -1,0 +1,30 @@
+{
+  "name": "study-jio-bot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Telegram bot that sends study 'jio' polls where members can add their own time slots. Runs free on Cloudflare Workers.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "check": "npm run typecheck && npm test",
+    "setup:webhook": "tsx scripts/setup-webhook.ts",
+    "webhook:info": "tsx scripts/setup-webhook.ts --info",
+    "secret:generate": "node -e \"console.log(require('crypto').randomBytes(48).toString('base64url'))\""
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261101.0",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0",
+    "vitest": "^3.2.0",
+    "wrangler": "^4.40.0"
+  }
+}
