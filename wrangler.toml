@@ -18,7 +18,7 @@ enabled = true
 [vars]
 # Your bot's @username WITHOUT the "@". Used to ignore commands meant for other bots
 # in groups (e.g. "/jio@SomeOtherBot").
-BOT_USERNAME = "your_bot_username"
+BOT_USERNAME = "study_jio_tester_bot"
 
 # Reject webhook calls that don't come from Telegram's published IP ranges.
 # Defence in depth on top of the secret token. Set to "false" only if you are debugging.
