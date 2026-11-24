@@ -20,11 +20,11 @@
     "secret:generate": "node -e \"console.log(require('crypto').randomBytes(48).toString('base64url'))\""
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^5.20261101.0",
-    "@types/node": "^22.0.0",
+    "@cloudflare/workers-types": "^5.20261121.1",
+    "@types/node": "^26.6.6",
     "tsx": "^4.20.0",
-    "typescript": "^5.9.0",
-    "vitest": "^3.2.0",
-    "wrangler": "^4.40.0"
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.1",
+    "wrangler": "^4.166.0"
   }
 }
